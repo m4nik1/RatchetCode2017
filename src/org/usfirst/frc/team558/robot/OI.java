@@ -15,7 +15,7 @@ public class OI {
 	
 	
 	//JoystickButton gearIntakeInBtn = new JoystickButton(operatorStick, 1);
-	//JoystickButton gearIntakeOutBtn = new JoystickButton(operatorStick, 10); 
+	//JoystickButton gearIntakeOutBtn = new JoystickButton(operatorStick, 10); // testing with github blah blah
 	
 	
 	
