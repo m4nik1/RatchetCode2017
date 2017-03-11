@@ -24,11 +24,11 @@ public class SetShooterFeeder extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	double feederAxis = Robot.oi.GetFeeder();
-    	if (feederAxis < -.3 ){
-    		Robot.shooterFeeder.TurnOnShooterFeeder(-1.0);
+    	if (feederAxis < -.1 ){
+    		Robot.shooterFeeder.TurnOnShooterFeeder(.8);
     	}
-    	else if (feederAxis > .3){
-    		Robot.shooterFeeder.TurnOnShooterFeeder(0.8);
+    	else if (feederAxis > .1){
+    		Robot.shooterFeeder.TurnOnShooterFeeder(-1.0);
     	}
     	else{
     		Robot.shooterFeeder.TurnOffShooterFeeder();

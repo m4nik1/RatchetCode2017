@@ -13,7 +13,6 @@ public class PickUpGear extends Command {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.gearIntake);
         requires(Robot.actuateGear);
-        requires(Robot.fuelIntake);
     }
 
     // Called just before this Command runs the first time
@@ -23,7 +22,6 @@ public class PickUpGear extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    	Robot.fuelIntake.FuelSolUp(); // Uncomment this for second gearIntake because it goes past bumpers
     	Robot.actuateGear.GearSolDown();
     	Robot.gearIntake.PutGearIn(1);
     	

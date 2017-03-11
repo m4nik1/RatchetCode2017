@@ -1,5 +1,6 @@
 package org.usfirst.frc.team558.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 import org.usfirst.frc.team558.robot.RobotMap;
@@ -10,9 +11,9 @@ import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
 public class DriveTrain extends Subsystem {
 
-	CANTalon leftDriveMaster = new CANTalon(RobotMap.leftDriveMaster); //encoder
+	CANTalon leftDriveMaster = new CANTalon(RobotMap.leftDriveMaster);
 	CANTalon leftDriveSlave1 = new CANTalon(RobotMap.leftDriveSlave1);
-	CANTalon leftDriveSlave2 = new CANTalon(RobotMap.leftDriveSlave2); 
+	CANTalon leftDriveSlave2 = new CANTalon(RobotMap.leftDriveSlave2); //encoder
 	
 	CANTalon rightDriveMaster = new CANTalon(RobotMap.rightDriveMaster); //encoder
 	CANTalon rightDriveSlave1 = new CANTalon(RobotMap.rightDriveSlave1);
@@ -23,15 +24,12 @@ public class DriveTrain extends Subsystem {
 		this.leftDriveMaster.changeControlMode(TalonControlMode.PercentVbus);
 		this.rightDriveMaster.changeControlMode(TalonControlMode.PercentVbus);
 		
-		
-		this.leftDriveMaster.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		this.leftDriveMaster.reverseSensor(false);
+		this.leftDriveSlave2.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		this.leftDriveSlave2.reverseSensor(true);
 		this.rightDriveMaster.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		this.rightDriveMaster.reverseSensor(true);
-	//*** NEED TO UPDATE ***
-		this.leftDriveMaster.configEncoderCodesPerRev((int)(128/1.1616));
-		this.rightDriveMaster.configEncoderCodesPerRev((int)(128/1.1616));
-	//*** NEED TO UPDATE ***		
+		this.leftDriveSlave2.configEncoderCodesPerRev((int)(128/4.285));
+		this.rightDriveMaster.configEncoderCodesPerRev((int)(64/4.285));
+		
 		
 		
 		this.leftDriveSlave1.changeControlMode(TalonControlMode.Follower);
@@ -43,6 +41,7 @@ public class DriveTrain extends Subsystem {
 		this.rightDriveSlave1.set(this.rightDriveMaster.getDeviceID());
 		this.rightDriveSlave2.changeControlMode(TalonControlMode.Follower);
 		this.rightDriveSlave2.set(this.rightDriveMaster.getDeviceID());
+		
 		
 	}
 	
@@ -57,7 +56,7 @@ public class DriveTrain extends Subsystem {
     }
     
     public double GetLeftEncoder(){
-    	return this.leftDriveMaster.getPosition();
+    	return this.leftDriveSlave2.getPosition();
     }
     
     public double GetRightEncoder(){
@@ -65,11 +64,11 @@ public class DriveTrain extends Subsystem {
     }
     
     public double GetAverageEncoderDistance(){
-    	return ((this.leftDriveMaster.getPosition() + this.rightDriveMaster.getPosition())/2);
+    	return ((this.leftDriveSlave2.getPosition() + this.rightDriveMaster.getPosition())/2);
     }
     
     public void resetEncoders() {
-    	this.leftDriveMaster.setPosition(0.0);
+    	this.leftDriveSlave2.setPosition(0.0);
     	this.rightDriveMaster.setPosition(0.0);
     }
     
@@ -84,10 +83,15 @@ public class DriveTrain extends Subsystem {
     	return this.rightDriveMaster.get();
     	
     }
-    
     public void SetRampRate(){
-    	this.leftDriveMaster.setVoltageRampRate(60);
-		this.rightDriveMaster.setVoltageRampRate(60);
-		
+    	leftDriveMaster.setVoltageRampRate(60);
+    	leftDriveMaster.setVoltageRampRate(60);
+    	
     }
+    
+    public void CheckEncoder(){
+
+    }
+    
 }
+

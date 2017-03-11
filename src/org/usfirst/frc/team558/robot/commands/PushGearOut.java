@@ -7,11 +7,13 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class FuelIntakeUpdown extends Command {
+public class PushGearOut extends Command {
 
-    public FuelIntakeUpdown() {
+    public PushGearOut() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.fuelIntake);
+        // eg. requires(chassis);
+    	
+    	requires(Robot.gearIntake);
     }
 
     // Called just before this Command runs the first time
@@ -21,7 +23,7 @@ public class FuelIntakeUpdown extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    	Robot.fuelIntake.FuelSolDown();
+    	Robot.gearIntake.PushGearOut();
     	
     }
 
@@ -38,7 +40,7 @@ public class FuelIntakeUpdown extends Command {
     // subsystems is scheduled to run
     protected void interrupted() {
     	
-    	Robot.fuelIntake.FuelSolUp();
+    	
     	
     }
 }

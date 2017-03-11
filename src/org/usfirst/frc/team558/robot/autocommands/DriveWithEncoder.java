@@ -28,10 +28,7 @@ public class DriveWithEncoder extends Command {
      *            Max speed for robot to travel -1 to 1
      * @param aTime
      *            Max time till timed out in seconds
-     * @param aKp
-     * 			  Proportional constant for desired distance
      */
-    
     public DriveWithEncoder(double aDistance, double aSpeed, double aTime, double aKp) {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.driveTrain);

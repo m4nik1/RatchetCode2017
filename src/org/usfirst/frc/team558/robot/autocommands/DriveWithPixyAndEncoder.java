@@ -10,9 +10,9 @@ public class DriveWithPixyAndEncoder extends Command {
 	private double mTime;
 	private double mSpeed;
 	private double mDistance;
-	private double mKp;
 	
 	private double error;
+	private double kp = .02;
 	private double tolerance = .5;
 	private double pidSpeed;
 	
@@ -26,17 +26,14 @@ public class DriveWithPixyAndEncoder extends Command {
      *            Max speed for robot to travel -1 to 1
      * @param aTime
      *            Max time till timed out in seconds
-     * @param aKp
-     * 			  Proportional constant for desired distance
      */
-    public DriveWithPixyAndEncoder(double aDistance, double aSpeed, double aTime, double aKp) {
+    public DriveWithPixyAndEncoder(double aDistance, double aSpeed, double aTime) {
         requires(Robot.driveTrain);
         requires(Robot.pixycam);
         
         this.mDistance = aDistance;
         this.mSpeed = aSpeed;
         this.mTime = aTime;
-        this.mKp = aKp;
         
         setTimeout(mTime);
         
@@ -62,11 +59,11 @@ public class DriveWithPixyAndEncoder extends Command {
     	
     	error = Math.abs(mDistance - Robot.driveTrain.GetAverageEncoderDistance());
     	
-    	if (mKp * error >= mSpeed){
+    	if (kp * error >= mSpeed){
     		pidSpeed = mSpeed;
     	}
     	else {
-    		pidSpeed = mKp * error;
+    		pidSpeed = kp * error;
     	}
 
   

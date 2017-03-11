@@ -3,15 +3,17 @@ package org.usfirst.frc.team558.robot.commands;
 import org.usfirst.frc.team558.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
-
 /**
  *
  */
-public class FuelIntakeUpdown extends Command {
+public class GearUpDown extends Command {
 
-    public FuelIntakeUpdown() {
+    public GearUpDown() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.fuelIntake);
+        // eg. requires(chassis);
+    	
+    	requires(Robot.actuateGear);
+    	requires(Robot.fuelIntake);
     }
 
     // Called just before this Command runs the first time
@@ -21,7 +23,8 @@ public class FuelIntakeUpdown extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    	Robot.fuelIntake.FuelSolDown();
+    	Robot.actuateGear.GearSolDown();
+    	Robot.fuelIntake.FuelSolUp();
     	
     }
 
@@ -38,7 +41,7 @@ public class FuelIntakeUpdown extends Command {
     // subsystems is scheduled to run
     protected void interrupted() {
     	
-    	Robot.fuelIntake.FuelSolUp();
+    	Robot.actuateGear.GearSolUp();
     	
     }
 }

@@ -15,7 +15,6 @@ public class DropGear extends Command {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.actuateGear);
         requires(Robot.gearIntake);
-        requires(Robot.fuelIntake);
     }
 
     // Called just before this Command runs the first time
@@ -25,9 +24,8 @@ public class DropGear extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    	//Robot.fuelIntake.FuelSolUp(); // check Pickgear command for why
-    	Robot.gearIntake.PutGearIn(-.8);
-    	//Robot.actuateGear.GearSolDown();
+    	Robot.gearIntake.PutGearIn(-1);
+    	Robot.actuateGear.GearSolDown();
     	
     }
 
@@ -48,7 +46,7 @@ public class DropGear extends Command {
     protected void interrupted() {
     	
     	Robot.gearIntake.GearIntakeStop();
-//    	Robot.actuateGear.GearSolUp();
+    	Robot.actuateGear.GearSolUp();
     	
     }
 }

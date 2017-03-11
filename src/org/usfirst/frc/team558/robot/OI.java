@@ -14,41 +14,47 @@ public class OI {
 	JoystickButton shootOffButton = new JoystickButton(operatorStick, 8);
 	
 	
+	//JoystickButton gearIntakeInBtn = new JoystickButton(operatorStick, 1);
+	//JoystickButton gearIntakeOutBtn = new JoystickButton(operatorStick, 10);
+	
+	
+	
 	JoystickButton brakeOnButton = new JoystickButton(driveStick, 3);
 	JoystickButton brakeOffButton = new JoystickButton(driveStick, 4);
 	
-	JoystickButton speedUpButton = new JoystickButton(operatorStick, 9);
-	JoystickButton speedDownButton = new JoystickButton(operatorStick, 10);
+	JoystickButton actuateGear = new JoystickButton(operatorStick, 4);
+	
+	//JoystickButton speedUpButton = new JoystickButton(operatorStick, 5);
+	//JoystickButton speedDownButton = new JoystickButton(operatorStick, 6);
 	
 	JoystickButton pixyAlignbtn = new JoystickButton(driveStick, 1);
 	
 	JoystickButton pickGearUp = new JoystickButton(operatorStick, 5);
 	JoystickButton dropGear = new JoystickButton(operatorStick, 6);
 	
-	JoystickButton gearIntakeOut = new JoystickButton(operatorStick, 4);	
-	JoystickButton fuelIntakeUp = new JoystickButton(operatorStick, 1);
-	
 	
 	
 	
 	public OI(){
 	
+		shooterFeederButton.toggleWhenPressed(new SetShooterFeeder());
 		
 		shootOnButton.whenPressed(new SetShooterOn());
 		shootOffButton.whenPressed(new SetShooterOff());
 		
-	
+		//gearIntakeInBtn.toggleWhenPressed(new PullGearIn());
+		//gearIntakeOutBtn.toggleWhenPressed(new PushGearOut());
+		
 		brakeOnButton.whenPressed(new SetBrakeOn());
 		brakeOffButton.whenPressed(new SetBrakeOff());
 		
-		speedUpButton.whenPressed(new ShooterSpeedUp());
-		speedDownButton.whenPressed(new ShooterSpeedDown());
+		actuateGear.toggleWhenPressed(new GearUpDown());
+		
+		//speedUpButton.whenPressed(new ShooterSpeedUp());
+		//speedDownButton.whenPressed(new ShooterSpeedDown());
 		
 		pickGearUp.whileHeld(new PickUpGear());
 		dropGear.whileHeld(new DropGear());
-		
-		gearIntakeOut.whileHeld(new GearOut());
-		fuelIntakeUp.whenPressed(new RetractFuelIntake());
 		
 		pixyAlignbtn.whenPressed(new AlignWithPixy()); 
 		
@@ -90,5 +96,10 @@ public class OI {
 		return operatorStick.getRawAxis(3);
 	}
 	
-
+	public double GetGearSpeed(){
+		
+		return operatorStick.getRawAxis(1);
+		
+	}
+	
 }

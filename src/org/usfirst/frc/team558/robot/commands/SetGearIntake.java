@@ -7,11 +7,13 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class FuelIntakeUpdown extends Command {
-
-    public FuelIntakeUpdown() {
+public class SetGearIntake extends Command {
+	
+    public SetGearIntake() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.fuelIntake);
+        // eg. requires(chassis);
+    	
+    	requires(Robot.gearIntake);
     }
 
     // Called just before this Command runs the first time
@@ -21,7 +23,24 @@ public class FuelIntakeUpdown extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    	Robot.fuelIntake.FuelSolDown();
+    	double gearStick = Robot.oi.GetGearSpeed();
+    	
+    	if(gearStick > .1){
+    		
+    		Robot.gearIntake.PutGearIn(1);
+    		
+    	}
+    	
+    	else if(gearStick < -.1){
+    		
+    		Robot.gearIntake.PutGearIn(-1);
+    		
+    	}
+    	else{
+    		
+    		Robot.gearIntake.GearIntakeStop();
+    		
+    	}
     	
     }
 
@@ -37,8 +56,5 @@ public class FuelIntakeUpdown extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	
-    	Robot.fuelIntake.FuelSolUp();
-    	
     }
 }

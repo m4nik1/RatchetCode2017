@@ -20,7 +20,7 @@ public class DropGear extends Command {
     
     protected void execute() {
     	
-    	Robot.gearIntake.PutGearIn(-1);
+    	Robot.gearIntake.PushGearOut();
     	
     }
 

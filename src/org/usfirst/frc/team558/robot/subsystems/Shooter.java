@@ -21,13 +21,14 @@ public class Shooter extends Subsystem {
         shooterMaster.configPeakOutputVoltage(+12.0f, -0.0f);
         shooterMaster.setProfile(0);
         shooterMaster.setF(2.99);
-        shooterMaster.setP(6.44); // 1.894*10
+        shooterMaster.setP(1.894*10);
         shooterMaster.setI(0);
-        shooterMaster.setD(6.44 * 20);	
+        shooterMaster.setD(0);	
 
     	shooterSlave1.changeControlMode(TalonControlMode.Follower);
     	shooterSlave1.set(this.shooterMaster.getDeviceID());
 
+    
 	}
 
 	public void setShooterSpeed(double targetSpeed){
@@ -41,16 +42,10 @@ public class Shooter extends Subsystem {
     	
 	}
 	
-	public double ShooterSpeed(){
-		return shooterMaster.getSpeed();
-	}
-	
 	
 	
     public void initDefaultCommand() {
         //setDefaultCommand(new MySpecialCommand());
     }
-    
-    
 }
 

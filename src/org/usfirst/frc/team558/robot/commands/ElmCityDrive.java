@@ -98,7 +98,7 @@ public class ElmCityDrive extends Command {
           overPower = 1.0;
           sensitivity = 1.0;
           
-          angularPower = 1.3* wheel;
+          angularPower = wheel;
         } 
         else {
           overPower = 0.0;

@@ -19,6 +19,18 @@ public class Gyro extends Subsystem {
     public double GetAngle(){
     	return gyro.getYaw();
     }
+    public double GetYaw(){
+    	return gyro.getYaw();
+    }
+    
+    public double GetPitch(){
+    	return gyro.getPitch();
+    }
+    
+    public double GetRoll(){
+    	return gyro.getRoll();
+    }
+    
     
     
     public void ResetGyro(){

@@ -34,8 +34,6 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 
 	Command autonomousCommand;
-	
-	
 	SendableChooser<Command> chooser = new SendableChooser<Command>();
 
 
@@ -48,18 +46,9 @@ public class Robot extends IterativeRobot {
 		CameraServer.getInstance().startAutomaticCapture();
 		
 		
-		chooser.addDefault("Do Nothing", new DoNothing());
-		chooser.addObject("CrossBaselineCenter", new CrossBaseline()); // Uncomment these if GearIntake doesn't at all
-		chooser.addObject("CrossBaselineStraight", new CrossBaselineStraight()); // ****WARNING THIS IS LAST RESORT
-		chooser.addObject("Drive Straight Drop Gear" , new DriveDropGear());
-		chooser.addObject("Drive Right Drop Gear" , new DriveAndDropGearRightSide());
-		chooser.addObject("Drive Left Drop Gear" , new DriveAndDropGearLeftSide());
-		chooser.addObject("PIXY Drive Straight Drop Gear" , new DriveDropGearPixy());
-		chooser.addObject("PIXY Drive Right Drop Gear" , new DriveAndDropGearRightSidePixy());
-		chooser.addObject("PIXY Drive Left Drop Gear" , new DriveAndDropGearLeftSidePixy());
-
 		
-		SmartDashboard.putData("Auto mode", chooser);
+		
+		//SmartDashboard.putData("Auto mode", chooser);
 		
 		
 		
@@ -83,8 +72,8 @@ public class Robot extends IterativeRobot {
 	
 	@Override
 	public void autonomousInit() {
-	autonomousCommand = (Command) chooser.getSelected();
-	
+	autonomousCommand = new DriveAndDropGearRightSide();
+
 	Robot.driveTrain.resetEncoders();
 	
 			if (autonomousCommand != null)
@@ -102,8 +91,6 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Right Encoder", Robot.driveTrain.GetRightEncoder());
 		SmartDashboard.putNumber("Average Encoder", Robot.driveTrain.GetAverageEncoderDistance());
 		SmartDashboard.putNumber("Pixy Offset" , Robot.pixycam.getLastOffset());
-		
-	
 	}
 
 	
@@ -118,6 +105,7 @@ public class Robot extends IterativeRobot {
 		RobotMap.targetSpeed = 8350;
 
 		Robot.driveTrain.resetEncoders();
+		Robot.gyro.ResetGyro();
 		Robot.driveTrain.SetRampRate();
 		
 	}
@@ -128,6 +116,8 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		
+		Robot.driveTrain.CheckEncoder();
+		
 		if (!pcm.getPressureSwitchValue()){
 			compressor.set(Value.kForward);
 		}
@@ -135,13 +125,16 @@ public class Robot extends IterativeRobot {
 			compressor.set(Value.kOff);
 		}
 		Robot.pixycam.read();
-		
-		SmartDashboard.putNumber("Gyro Angle", Robot.gyro.GetAngle());
 		SmartDashboard.putNumber("Left Encoder", Robot.driveTrain.GetLeftEncoder());
 		SmartDashboard.putNumber("Right Encoder", Robot.driveTrain.GetRightEncoder());
 		SmartDashboard.putNumber("Average Encoder", Robot.driveTrain.GetAverageEncoderDistance());
 		SmartDashboard.putNumber("Pixy Offset" , Robot.pixycam.getLastOffset());
-		SmartDashboard.putNumber("Shooter Speed", Robot.shooter.ShooterSpeed());
+		SmartDashboard.putNumber("Left Motor" , Robot.driveTrain.GetLeftDrive());
+		SmartDashboard.putNumber("Right Motor" , Robot.driveTrain.GetRightDrive());
+		SmartDashboard.putNumber("Gyro Yaw" , Robot.gyro.GetYaw());
+		SmartDashboard.putNumber("Gyro Pitch" , Robot.gyro.GetPitch());
+		SmartDashboard.putNumber("Gyro Roll" , Robot.gyro.GetRoll());
+		
 		
 	}
 
